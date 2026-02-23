@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile – SkillSwap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family:'DM Sans',sans-serif; background:#0f172a; color:#f1f5f9; }
+    .font-display { font-family:'Syne',sans-serif; }
+    .active-nav  { background:rgba(249,115,22,.12); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+    .inactive-nav:hover { background:#263348; color:#f1f5f9; }
+    ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:#0f172a;} ::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px;}
+  </style>
+</head>
+<body class="min-h-screen flex">
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+  <aside id="sidebar" class="-translate-x-full lg:translate-x-0 transition-transform duration-300 fixed top-0 left-0 w-60 min-h-screen z-50 flex flex-col border-r border-white/[0.07]" style="background:#1e293b;">
+    <div class="px-5 py-6 border-b border-white/[0.07]">
+      <div class="font-display font-extrabold text-xl tracking-tight" style="color:#f97316;">SkillSwap</div>
+      <div class="text-xs text-slate-500 mt-1">Trade skills, grow together</div>
+    </div>
+    <nav class="flex-1 p-3 flex flex-col gap-0.5">
+      <a href="index.html"     class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🔍</span> Browse skills</a>
+      <a href="proposals.html" class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🤝</span> Proposals</a>
+      <a href="messages.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>💬</span> Messages</a>
+      <a href="schedule.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>📅</span> Schedule</a>
+      <a href="profile.html"   class="nav-link active-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"><span>👤</span> Profile</a>
+      <a href="settings.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>⚙️</span> Settings</a>
+    </nav>
+  </aside>
+
+  <div class="flex-1 flex flex-col lg:ml-60">
+    <header class="lg:hidden flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] sticky top-0 z-30" style="background:#1e293b;">
+      <span class="font-display font-extrabold text-lg" style="color:#f97316;">SkillSwap</span>
+      <button id="menu-btn" class="flex flex-col gap-1.5 p-1 cursor-pointer">
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+      </button>
+    </header>
+
+    <div class="px-6 sm:px-8 pt-8 pb-2">
+      <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight">My Profile</h1>
+      <p class="text-slate-400 text-sm mt-1">Manage your public profile and listed skills</p>
+    </div>
+
+    <div class="px-6 sm:px-8 py-6 pb-10 grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+      <!-- Left (2 cols) -->
+      <div class="lg:col-span-2 flex flex-col gap-5">
+
+        <!-- Hero card -->
+        <div class="relative rounded-2xl p-6 border border-white/[0.07] overflow-hidden" style="background:linear-gradient(135deg,#1e293b,#162032);">
+          <div class="absolute top-0 right-0 w-56 h-56 opacity-100 pointer-events-none" style="background:radial-gradient(circle at top right, rgba(249,115,22,.12) 0%, transparent 60%);"></div>
+          <div class="flex flex-wrap items-start gap-5">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center font-display font-extrabold text-3xl text-white flex-shrink-0" style="background:linear-gradient(135deg,#f97316,#c2410c);border:3px solid rgba(249,115,22,.3);box-shadow:0 0 30px rgba(249,115,22,.2);">A</div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <h2 class="font-display font-extrabold text-xl tracking-tight">Alex Johnson</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);">✓ Verified</span>
+              </div>
+              <div class="text-slate-400 text-sm mb-2">📍 San Francisco, CA</div>
+              <div class="text-sm text-amber-400">⭐ <strong class="text-white">4.8</strong> <span class="text-slate-500">(24 reviews)</span></div>
+              <p class="text-slate-400 text-sm leading-relaxed mt-3 max-w-md">Full-stack developer passionate about sharing knowledge. I love teaching React and modern web tech. Looking to learn Spanish, piano, and design skills.</p>
+            </div>
+            <button class="px-4 py-2 rounded-xl text-xs font-semibold border transition-all hover:bg-white/5 text-slate-300 border-white/[0.07] flex-shrink-0" style="background:#263348;">✏️ Edit</button>
+          </div>
+        </div>
+
+        <!-- Skills I Offer -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">💡 Skills I Offer</h3>
+          <div class="flex flex-wrap gap-2" id="offer-skills">
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">💻 Web Development & React<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">🎨 Graphic Design<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">🐍 Python Basics<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <button onclick="addSkill('offer')" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all" style="color:#f97316;background:rgba(249,115,22,.08);border:1.5px dashed rgba(249,115,22,.3);">+ Add Skill</button>
+          </div>
+        </div>
+
+        <!-- Skills I Want -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">🌱 Skills I Want to Learn</h3>
+          <div class="flex flex-wrap gap-2" id="want-skills">
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">🗣 Spanish<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">🎹 Piano<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm" style="background:rgba(255,255,255,.04);">📷 Photography<button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button></div>
+            <button onclick="addSkill('want')" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all" style="color:#14b8a6;background:rgba(20,184,166,.08);border:1.5px dashed rgba(20,184,166,.3);">+ Add Skill</button>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">⭐ Reviews</h3>
+          <div class="flex flex-col gap-3">
+            <div class="rounded-xl p-4 border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background:linear-gradient(135deg,#14b8a6,#0e7490);">KS</div>
+                <div><div class="font-semibold text-sm">Kate Smith</div><div class="text-amber-400 text-xs">★★★★★</div></div>
+                <span class="ml-auto text-xs text-slate-600">Jan 2024</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed">Alex is an incredible teacher! Explained React concepts clearly and patiently. Highly recommend.</p>
+            </div>
+            <div class="rounded-xl p-4 border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white bg-violet-600">JD</div>
+                <div><div class="font-semibold text-sm">John Doe</div><div class="text-amber-400 text-xs">★★★★☆</div></div>
+                <span class="ml-auto text-xs text-slate-600">Dec 2023</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed">Great session on design principles. Very knowledgeable and easy to talk to.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right sidebar -->
+      <div class="flex flex-col gap-5">
+        <!-- Stats -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">📊 Activity</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl p-3 text-center border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="font-display font-extrabold text-2xl" style="color:#f97316;">3</div>
+              <div class="text-xs text-slate-500 mt-0.5">Active swaps</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="font-display font-extrabold text-2xl" style="color:#2dd4bf;">12</div>
+              <div class="text-xs text-slate-500 mt-0.5">Sessions done</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="font-display font-extrabold text-2xl text-amber-400">4.8</div>
+              <div class="text-xs text-slate-500 mt-0.5">Rating</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-white/[0.05]" style="background:rgba(255,255,255,.03);">
+              <div class="font-display font-extrabold text-2xl text-violet-400">24</div>
+              <div class="text-xs text-slate-500 mt-0.5">Reviews</div>
+            </div>
+          </div>
+        </div>
+        <!-- Availability -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">🕐 Availability</h3>
+          <div class="flex flex-col gap-2.5">
+            <div class="flex justify-between items-center text-sm"><span class="text-slate-400">Weekday evenings</span><span class="px-2 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);">Available</span></div>
+            <div class="flex justify-between items-center text-sm"><span class="text-slate-400">Weekend mornings</span><span class="px-2 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);">Available</span></div>
+            <div class="flex justify-between items-center text-sm"><span class="text-slate-400">Weekdays</span><span class="px-2 py-0.5 rounded-full text-xs font-semibold text-slate-400 border border-white/[0.07]" style="background:rgba(255,255,255,.05);">Limited</span></div>
+            <button class="mt-2 w-full py-2 rounded-xl text-xs font-semibold text-slate-400 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#1e293b;">Edit Availability</button>
+          </div>
+        </div>
+        <!-- Quick actions -->
+        <div class="rounded-2xl p-5 border border-white/[0.07]" style="background:#263348;">
+          <h3 class="font-display font-bold text-base mb-4 pb-3 border-b border-white/[0.07]">⚡ Quick Actions</h3>
+          <div class="flex flex-col gap-2">
+            <a href="browse.html"    class="w-full py-2.5 rounded-xl text-sm font-bold text-white text-center transition-all hover:opacity-90" style="background:#f97316;">🔍 Browse Skills</a>
+            <a href="proposals.html" class="w-full py-2.5 rounded-xl text-sm font-semibold text-center border transition-all hover:bg-white/5" style="color:#f97316;border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.07);">🤝 View Proposals</a>
+            <a href="messages.html"  class="w-full py-2.5 rounded-xl text-sm font-semibold text-center text-slate-400 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#1e293b;">💬 Messages</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function addSkill(type) {
+      const s = prompt(`Enter skill to ${type === 'offer' ? 'offer' : 'learn'}:`);
+      if (!s || !s.trim()) return;
+      const container = document.getElementById(`${type}-skills`);
+      const btn = container.querySelector('button:last-child');
+      const div = document.createElement('div');
+      div.className = 'flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.07] text-sm';
+      div.style.background = 'rgba(255,255,255,.04)';
+      div.innerHTML = `${s.trim()} <button onclick="this.parentElement.remove()" class="ml-1.5 text-slate-500 hover:text-red-400 transition-colors">✕</button>`;
+      container.insertBefore(div, btn);
+    }
+  </script>
+</body>
+</html>

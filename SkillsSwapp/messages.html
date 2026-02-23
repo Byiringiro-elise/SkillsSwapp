@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messages – SkillSwap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family:'DM Sans',sans-serif; background:#0f172a; color:#f1f5f9; height:100vh; overflow:hidden; }
+    .font-display { font-family:'Syne',sans-serif; }
+    .active-nav  { background:rgba(249,115,22,.12); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+    .inactive-nav:hover { background:#263348; color:#f1f5f9; }
+    input { background:#1e293b; border:1px solid rgba(255,255,255,.07); color:#f1f5f9; border-radius:99px; padding:.5rem 1rem .5rem 2.2rem; font-size:.8rem; width:100%; outline:none; font-family:'DM Sans',sans-serif; }
+    input:focus { border-color:#f97316; }
+    input::placeholder { color:#475569; }
+    #msg-input { border-radius:99px; padding:.6rem 1.1rem; }
+    ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:#0f172a;} ::-webkit-scrollbar-thumb{background:#263348;border-radius:3px;}
+  </style>
+</head>
+<body class="flex" style="height:100vh;">
+
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="-translate-x-full lg:translate-x-0 transition-transform duration-300 fixed top-0 left-0 w-60 h-full z-50 flex flex-col border-r border-white/[0.07]" style="background:#1e293b;">
+    <div class="px-5 py-6 border-b border-white/[0.07]">
+      <div class="font-display font-extrabold text-xl tracking-tight" style="color:#f97316;">SkillSwap</div>
+      <div class="text-xs text-slate-500 mt-1">Trade skills, grow together</div>
+    </div>
+    <nav class="flex-1 p-3 flex flex-col gap-0.5">
+      <a href="index.html"     class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🔍</span> Browse skills</a>
+      <a href="proposals.html" class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🤝</span> Proposals</a>
+      <a href="messages.html"  class="nav-link active-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"><span>💬</span> Messages</a>
+      <a href="schedule.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>📅</span> Schedule</a>
+      <a href="profile.html"   class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>👤</span> Profile</a>
+      <a href="settings.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>⚙️</span> Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main layout -->
+  <div class="flex-1 flex flex-col lg:ml-60 overflow-hidden" style="height:100vh;">
+
+    <!-- Mobile header -->
+    <header class="lg:hidden flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] flex-shrink-0" style="background:#1e293b;">
+      <span class="font-display font-extrabold text-lg" style="color:#f97316;">SkillSwap</span>
+      <button id="menu-btn" class="flex flex-col gap-1.5 p-1 cursor-pointer">
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+      </button>
+    </header>
+
+    <!-- Messages area -->
+    <div class="flex flex-1 overflow-hidden">
+
+      <!-- Conversations list -->
+      <div id="conv-panel" class="w-full sm:w-72 flex-shrink-0 flex flex-col border-r border-white/[0.07] overflow-hidden" style="background:#1e293b;">
+        <div class="p-4 border-b border-white/[0.07]">
+          <h2 class="font-display font-bold text-base mb-3">Messages</h2>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs">🔍</span>
+            <input type="search" placeholder="search conversation..." class="pl-7"/>
+          </div>
+        </div>
+        <div id="conv-list" class="flex-1 overflow-y-auto p-2"></div>
+      </div>
+
+      <!-- Chat panel -->
+      <div id="chat-area" class="hidden sm:flex flex-col flex-1 overflow-hidden">
+        <!-- Chat header -->
+        <div id="chat-header" class="hidden px-5 py-3.5 border-b border-white/[0.07] flex items-center gap-3 flex-shrink-0" style="background:#1e293b;">
+          <button id="back-btn" class="sm:hidden text-slate-400 hover:text-white text-lg" onclick="showConvPanel()">←</button>
+          <div id="hdr-avatar" class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs text-white flex-shrink-0" style="background:linear-gradient(135deg,#f97316,#c2410c);">KS</div>
+          <div>
+            <div id="hdr-name" class="font-semibold text-sm">Kate Smith</div>
+            <div class="text-xs" style="color:#2dd4bf;">● Online</div>
+          </div>
+          <div class="ml-auto flex gap-2">
+            <a href="schedule.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#263348;">📅 Schedule</a>
+            <a href="proposals.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all" style="color:#f97316;border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.08);">🤝 Proposal</a>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <div id="chat-empty" class="flex-1 flex flex-col items-center justify-center text-slate-500 gap-3">
+          <div class="text-4xl opacity-30">💬</div>
+          <p class="text-sm">Select a conversation to start messaging</p>
+        </div>
+
+        <!-- Messages -->
+        <div id="chat-msgs" class="hidden flex-1 overflow-y-auto p-5 flex flex-col gap-3"></div>
+
+        <!-- Input -->
+        <div id="chat-input" class="hidden px-5 py-3.5 border-t border-white/[0.07] flex gap-3 items-center flex-shrink-0" style="background:#1e293b;">
+          <input type="text" id="msg-input" placeholder="Type a message..." class="flex-1" style="border-radius:99px;padding:.6rem 1.1rem;"/>
+          <button onclick="sendMsg()" class="px-5 py-2.5 rounded-full text-sm font-bold text-white flex-shrink-0 transition-all hover:opacity-90" style="background:#f97316;">Send ↑</button>
+        </div>
+      </div>
+
+      <!-- Mobile: show chat area when conversation selected -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const CONVS = [
+      { id:'kate', name:'Kate Smith', init:'KS', grad:'linear-gradient(135deg,#f97316,#c2410c)', msgs:[
+          {s:'them', t:'Hi Alex! I would love to learn React from you.', time:'12:30 PM'},
+          {s:'me',   t:'That sounds amazing! I have always wanted to learn Spanish.', time:'12:31 PM'},
+          {s:'them', t:'Great! When are you usually free?', time:'12:33 PM'},
+          {s:'me',   t:'Weekends work best for me. How about Saturday mornings?', time:'12:35 PM'},
+      ]},
+      { id:'john', name:'John Doe', init:'JD', grad:'linear-gradient(135deg,#a78bfa,#7c3aed)', msgs:[
+          {s:'them', t:'Hey! Saw your profile — interested in swapping skills?', time:'10:00 AM'},
+      ]},
+      { id:'williams', name:'Williams', init:'W', grad:'linear-gradient(135deg,#14b8a6,#0e7490)', msgs:[] },
+    ];
+
+    let active = null;
+
+    function renderConvList(sel) {
+      document.getElementById('conv-list').innerHTML = CONVS.map(c => `
+        <div onclick="openConv('${c.id}')" class="flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${sel===c.id ? 'border' : 'hover:bg-white/[0.03]'}"
+          style="${sel===c.id ? 'background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.25);' : ''}">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:${c.grad};">${c.init}</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold ${sel===c.id ? '' : 'text-slate-200'}">${c.name}</div>
+            <div class="text-xs text-slate-500 truncate">${c.msgs.length ? c.msgs[c.msgs.length-1].t : 'No messages yet'}</div>
+          </div>
+        </div>`).join('');
+    }
+
+    function openConv(id) {
+      active = id;
+      const c = CONVS.find(x=>x.id===id);
+      renderConvList(id);
+
+      document.getElementById('chat-empty').classList.add('hidden');
+      document.getElementById('chat-header').classList.remove('hidden');
+      document.getElementById('chat-header').style.display = 'flex';
+      document.getElementById('chat-msgs').classList.remove('hidden');
+      document.getElementById('chat-msgs').style.display = 'flex';
+      document.getElementById('chat-msgs').style.flexDirection = 'column';
+      document.getElementById('chat-input').classList.remove('hidden');
+      document.getElementById('chat-input').style.display = 'flex';
+      document.getElementById('chat-area').classList.remove('hidden');
+      document.getElementById('chat-area').style.display = 'flex';
+
+      document.getElementById('hdr-name').textContent = c.name;
+      document.getElementById('hdr-avatar').textContent = c.init;
+      document.getElementById('hdr-avatar').style.background = c.grad;
+
+      renderMsgs(c);
+
+      if (window.innerWidth < 640) {
+        document.getElementById('conv-panel').style.display = 'none';
+      }
+    }
+
+    function renderMsgs(c) {
+      const el = document.getElementById('chat-msgs');
+      el.innerHTML = c.msgs.map(m => `
+        <div class="flex ${m.s==='me'?'justify-end':'justify-start'} gap-2">
+          ${m.s!=='me' ? `<div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white self-end flex-shrink-0" style="background:${c.grad};">${c.init}</div>` : ''}
+          <div class="max-w-xs sm:max-w-sm">
+            <div class="rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.s==='me'?'rounded-br-sm':'rounded-bl-sm'}"
+              style="${m.s==='me' ? 'background:rgba(249,115,22,.18);border:1px solid rgba(249,115,22,.25);' : 'background:#263348;border:1px solid rgba(255,255,255,.07);'}">${m.t}</div>
+            <div class="text-xs text-slate-600 mt-1 ${m.s==='me'?'text-right':'text-left'}">${m.time}</div>
+          </div>
+        </div>`).join('');
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function sendMsg() {
+      if (!active) return;
+      const inp = document.getElementById('msg-input');
+      const txt = inp.value.trim();
+      if (!txt) return;
+      const c = CONVS.find(x=>x.id===active);
+      const now = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      c.msgs.push({s:'me', t:txt, time:now});
+      inp.value = '';
+      renderMsgs(c);
+      renderConvList(active);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('msg-input').addEventListener('keydown', e => { if(e.key==='Enter') sendMsg(); });
+      renderConvList(null);
+    });
+
+    function showConvPanel() {
+      document.getElementById('conv-panel').style.display = 'flex';
+      document.getElementById('conv-panel').style.flexDirection = 'column';
+      document.getElementById('chat-area').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

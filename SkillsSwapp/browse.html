@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Skills – SkillSwap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            deep:'#0f172a', surface:'#1e293b', card:'#263348',
+          },
+          fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family:'DM Sans',sans-serif; background:#0f172a; color:#f1f5f9; }
+    .font-display { font-family:'Syne',sans-serif; }
+    .active-nav { background:rgba(249,115,22,.12); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+    .inactive-nav:hover { background:#263348; color:#f1f5f9; }
+    input,select { background:#1e293b; border:1px solid rgba(255,255,255,.07); color:#f1f5f9; border-radius:.5rem; padding:.55rem .85rem; font-size:.875rem; width:100%; outline:none; font-family:'DM Sans',sans-serif; }
+    input:focus,select:focus { border-color:#f97316; }
+    input::placeholder { color:#475569; }
+    select option { background:#1e293b; }
+    ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:#0f172a;} ::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px;}
+  </style>
+</head>
+<body class="min-h-screen flex">
+
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="-translate-x-full lg:translate-x-0 transition-transform duration-300 fixed top-0 left-0 w-60 min-h-screen z-50 flex flex-col border-r border-white/[0.07]" style="background:#1e293b;">
+    <div class="px-5 py-6 border-b border-white/[0.07]">
+      <div class="font-display font-extrabold text-xl tracking-tight" style="color:#f97316;">SkillSwap</div>
+      <div class="text-xs text-slate-500 mt-1">Trade skills, grow together</div>
+    </div>
+    <nav class="flex-1 p-3 flex flex-col gap-0.5">
+      <a href="index.html"     class="nav-link active-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"><span>🔍</span> Browse skills</a>
+      <a href="proposals.html" class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🤝</span> Proposals</a>
+      <a href="messages.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>💬</span> Messages</a>
+      <a href="schedule.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>📅</span> Schedule</a>
+      <a href="profile.html"   class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>👤</span> Profile</a>
+      <a href="settings.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>⚙️</span> Settings</a>
+    </nav>
+  </aside>
+
+  <div class="flex-1 flex flex-col lg:ml-60 min-h-screen">
+
+    <!-- Mobile header -->
+    <header class="lg:hidden flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] sticky top-0 z-30" style="background:#1e293b;">
+      <span class="font-display font-extrabold text-lg" style="color:#f97316;">SkillSwap</span>
+      <button id="menu-btn" class="flex flex-col gap-1.5 p-1 cursor-pointer">
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+      </button>
+    </header>
+
+    <!-- Page header -->
+    <div class="px-6 sm:px-8 pt-8 pb-6">
+      <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight">Browse Skills</h1>
+      <p class="text-slate-400 text-sm mt-1">Discover skills to learn from community members</p>
+    </div>
+
+    <!-- Content -->
+    <div class="px-6 sm:px-8 pb-10 flex flex-col lg:flex-row gap-6">
+
+      <!-- Filters panel -->
+      <aside class="w-full lg:w-52 flex-shrink-0">
+        <div class="rounded-2xl p-5 border border-white/[0.07] flex flex-col gap-5 sticky top-20" style="background:#1e293b;">
+          <!-- Search -->
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Search</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">🔍</span>
+              <input type="search" id="q" placeholder="search skills..." class="pl-8" oninput="doFilter()"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Category</label>
+            <select id="f-cat" onchange="doFilter()">
+              <option value="">All</option>
+              <option>Technology</option><option>Language</option><option>Design</option>
+              <option>Music</option><option>Fitness</option><option>Business</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Level</label>
+            <select id="f-lv" onchange="doFilter()">
+              <option value="">All</option>
+              <option>Beginner</option><option>Intermediate</option><option>Expert</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Availability</label>
+            <select id="f-av" onchange="doFilter()">
+              <option value="">Any</option>
+              <option>Flexible</option><option>Weekends</option><option>Evenings</option>
+            </select>
+          </div>
+          <button onclick="resetFilters()" class="w-full py-2 rounded-xl text-sm font-semibold text-slate-400 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#263348;">Reset</button>
+        </div>
+      </aside>
+
+      <!-- Results -->
+      <div class="flex-1">
+        <p class="text-sm text-slate-500 mb-4">Showing <span id="count" class="text-slate-200 font-semibold">8</span> skills</p>
+        <div id="list" class="flex flex-col gap-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const SKILLS = [
+      { id:1, title:'Web Development & React',       cat:'Technology', lv:'Expert',       av:'Flexible', desc:'I can teach you modern web development with React, TypeScript, and Next.js. Perfect for beginners looking to enter the tech industry.', tags:['#react','#javascript','#web-development'], teacher:'Jordan Smith', r:4.9, rv:18 },
+      { id:2, title:'Graphic Design – Canva & Adobe', cat:'Design',      lv:'Expert',       av:'Flexible', desc:'Learn graphic design basics using Canva and Adobe Creative Suite. Portfolio building included.', tags:['#design','#adobe','#graphic-design'], teacher:'Jordan Smith', r:4.9, rv:18 },
+      { id:3, title:'Spanish Conversation & Grammar', cat:'Language',    lv:'Intermediate', av:'Weekends', desc:'Native Spanish speaker offering conversational and structured grammar lessons for all levels.', tags:['#spanish','#language','#conversation'], teacher:'Kate Smith', r:4.7, rv:12 },
+      { id:4, title:'Piano Fundamentals',             cat:'Music',       lv:'Beginner',     av:'Evenings', desc:'Learn piano from scratch — reading notes, basic chord progressions, and your first songs.', tags:['#piano','#music','#beginner'], teacher:'Williams', r:4.8, rv:9 },
+      { id:5, title:'Data Science with Python',       cat:'Technology',  lv:'Intermediate', av:'Flexible', desc:'Explore data analysis, pandas, matplotlib, and intro machine learning with hands-on projects.', tags:['#python','#data-science','#pandas'], teacher:'John Doe', r:4.6, rv:7 },
+      { id:6, title:'Yoga & Mindfulness',             cat:'Fitness',     lv:'Beginner',     av:'Weekends', desc:'Morning yoga flows, breathwork, and guided meditation for stress reduction and flexibility.', tags:['#yoga','#mindfulness','#wellness'], teacher:'Kate Smith', r:5.0, rv:14 },
+      { id:7, title:'Business English Writing',       cat:'Business',    lv:'Intermediate', av:'Flexible', desc:'Improve your professional writing — emails, reports, proposals, and presentations.', tags:['#english','#writing','#business'], teacher:'John Doe', r:4.5, rv:6 },
+      { id:8, title:'UI/UX Design Fundamentals',     cat:'Design',      lv:'Beginner',     av:'Evenings', desc:'Learn user interface design principles, wireframing with Figma, and user research basics.', tags:['#figma','#ux','#design'], teacher:'Williams', r:4.7, rv:11 },
+    ];
+
+    const initials = n => n.split(' ').map(w=>w[0]).join('');
+
+    const levelStyle = l => l==='Expert'
+      ? 'background:rgba(249,115,22,.14);color:#fb923c;border:1px solid rgba(249,115,22,.25);'
+      : l==='Intermediate'
+      ? 'background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);'
+      : 'background:rgba(255,255,255,.06);color:#94a3b8;border:1px solid rgba(255,255,255,.07);';
+
+    function card(s) {
+      return `
+      <div class="rounded-2xl p-5 border border-white/[0.07] transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:border-white/10" style="background:#263348;">
+        <div class="font-display font-bold text-base mb-3">${s.title}</div>
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,.06);color:#94a3b8;border:1px solid rgba(255,255,255,.07);">${s.cat}</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold" style="${levelStyle(s.lv)}">${s.lv}</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,.06);color:#94a3b8;border:1px solid rgba(255,255,255,.07);">${s.av}</span>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed mb-3">${s.desc}</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          ${s.tags.map(t=>`<span class="px-2.5 py-0.5 rounded-full text-xs text-slate-500 border border-white/[0.06]" style="background:rgba(255,255,255,.03);">${t}</span>`).join('')}
+        </div>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background:linear-gradient(135deg,#f97316,#c2410c);">${initials(s.teacher)}</div>
+            <div>
+              <div class="text-sm font-semibold">${s.teacher}</div>
+              <div class="text-xs text-slate-500">⭐ ${s.r} (${s.rv})</div>
+            </div>
+          </div>
+          <a href="proposals.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white transition-all hover:opacity-90 hover:-translate-y-0.5" style="background:#f97316;">View &amp; Propose</a>
+        </div>
+      </div>`;
+    }
+
+    function doFilter() {
+      const q   = document.getElementById('q').value.toLowerCase();
+      const cat = document.getElementById('f-cat').value;
+      const lv  = document.getElementById('f-lv').value;
+      const av  = document.getElementById('f-av').value;
+      const res = SKILLS.filter(s =>
+        (!q || s.title.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q) || s.tags.join(' ').includes(q)) &&
+        (!cat || s.cat === cat) && (!lv || s.lv === lv) && (!av || s.av === av)
+      );
+      document.getElementById('count').textContent = res.length;
+      document.getElementById('list').innerHTML = res.map(card).join('') || '<p class="text-slate-500 py-10 text-center">No skills found.</p>';
+    }
+
+    function resetFilters() {
+      ['q','f-cat','f-lv','f-av'].forEach(id => document.getElementById(id).value='');
+      doFilter();
+    }
+
+    doFilter();
+  </script>
+</body>
+</html>

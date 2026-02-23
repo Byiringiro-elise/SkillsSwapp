@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proposals – SkillSwap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family:'DM Sans',sans-serif; background:#0f172a; color:#f1f5f9; }
+    .font-display { font-family:'Syne',sans-serif; }
+    .active-nav  { background:rgba(249,115,22,.12); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+    .inactive-nav:hover { background:#263348; color:#f1f5f9; }
+    .tab-active   { background:#263348; color:#f1f5f9; box-shadow:0 1px 4px rgba(0,0,0,.4); }
+    .tab-inactive { color:#475569; }
+    ::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:#0f172a;} ::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px;}
+  </style>
+</head>
+<body class="min-h-screen flex">
+
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+  <aside id="sidebar" class="-translate-x-full lg:translate-x-0 transition-transform duration-300 fixed top-0 left-0 w-60 min-h-screen z-50 flex flex-col border-r border-white/[0.07]" style="background:#1e293b;">
+    <div class="px-5 py-6 border-b border-white/[0.07]">
+      <div class="font-display font-extrabold text-xl tracking-tight" style="color:#f97316;">SkillSwap</div>
+      <div class="text-xs text-slate-500 mt-1">Trade skills, grow together</div>
+    </div>
+    <nav class="flex-1 p-3 flex flex-col gap-0.5">
+      <a href="index.html"     class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>🔍</span> Browse skills</a>
+      <a href="proposals.html" class="nav-link active-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"><span>🤝</span> Proposals</a>
+      <a href="messages.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>💬</span> Messages</a>
+      <a href="schedule.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>📅</span> Schedule</a>
+      <a href="profile.html"   class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>👤</span> Profile</a>
+      <a href="settings.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all"><span>⚙️</span> Settings</a>
+    </nav>
+  </aside>
+
+  <div class="flex-1 flex flex-col lg:ml-60">
+    <header class="lg:hidden flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] sticky top-0 z-30" style="background:#1e293b;">
+      <span class="font-display font-extrabold text-lg" style="color:#f97316;">SkillSwap</span>
+      <button id="menu-btn" class="flex flex-col gap-1.5 p-1 cursor-pointer">
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+      </button>
+    </header>
+
+    <div class="px-6 sm:px-8 pt-8 pb-2">
+      <h1 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight">Trade Proposals</h1>
+      <p class="text-slate-400 text-sm mt-1">Manage your skill exchange proposals and negotiations</p>
+    </div>
+
+    <div class="px-6 sm:px-8 py-6">
+      <!-- Tabs -->
+      <div class="flex rounded-xl p-1 w-fit mb-6 border border-white/[0.07]" style="background:#1e293b;">
+        <button onclick="showTab('received',this)" class="tab-active tab px-5 py-2 rounded-lg text-sm font-semibold transition-all">Received (3)</button>
+        <button onclick="showTab('sent',this)"     class="tab-inactive tab px-5 py-2 rounded-lg text-sm font-semibold transition-all">Sent (0)</button>
+      </div>
+
+      <!-- Received -->
+      <div id="tab-received" class="flex flex-col gap-4">
+
+        <!-- Proposal 1 – Accepted -->
+        <div class="rounded-2xl p-5 sm:p-6 border border-white/[0.07] transition-all hover:border-white/10 hover:shadow-xl" style="background:#263348;">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background:linear-gradient(135deg,#f97316,#c2410c);">JS</div>
+              <div>
+                <div class="font-semibold text-sm">Jordan Smith</div>
+                <div class="text-xs text-slate-500">⭐ 4.9 (18)</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide" style="background:rgba(20,184,166,.12);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);">✓ Accepted</span>
+              <span class="text-xs text-slate-500">Created 1/15/2024</span>
+            </div>
+          </div>
+          <!-- Exchange -->
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">They offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">🗣 Spanish Conversation</div>
+            </div>
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0 border" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.25);color:#f97316;">⇄</div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">You offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">💻 Web Dev & React</div>
+            </div>
+          </div>
+          <!-- Messages -->
+          <div class="mb-3">
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1.5">Their Message</div>
+            <div class="rounded-xl p-3 text-sm text-slate-300 leading-relaxed border border-white/[0.05]" style="background:rgba(255,255,255,.03);">I would love to learn React from you! I can offer Spanish lessons in exchange.</div>
+          </div>
+          <div class="mb-4">
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1.5">Your Response</div>
+            <div class="rounded-xl p-3 text-sm text-slate-300 leading-relaxed border" style="background:rgba(249,115,22,.05);border-color:rgba(249,115,22,.15);">Great! I am very interested in learning Spanish. Let's set up a time.</div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium border" style="background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.2);color:#2dd4bf;">📅 2/1/2024 – 3/1/2024</span>
+            <div class="flex gap-2 flex-wrap">
+              <a href="messages.html" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#1e293b;">💬 Message</a>
+              <a href="schedule.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white transition-all hover:opacity-90" style="background:#f97316;">📅 Schedule Meeting</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposal 2 – Pending -->
+        <div class="rounded-2xl p-5 sm:p-6 border border-white/[0.07] transition-all hover:border-white/10 hover:shadow-xl" style="background:#263348;">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background:linear-gradient(135deg,#14b8a6,#0e7490);">W</div>
+              <div>
+                <div class="font-semibold text-sm">Williams</div>
+                <div class="text-xs text-slate-500">⭐ 4.8 (9)</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide" style="background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2);">⏳ Pending</span>
+              <span class="text-xs text-slate-500">Created 2/5/2024</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">They offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">🎹 Piano Fundamentals</div>
+            </div>
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0 border" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.25);color:#f97316;">⇄</div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">You offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">💻 Web Dev & React</div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1.5">Their Message</div>
+            <div class="rounded-xl p-3 text-sm text-slate-300 leading-relaxed border border-white/[0.05]" style="background:rgba(255,255,255,.03);">Hi! I saw your React skills — I'd love to trade piano lessons. Interested?</div>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <button onclick="this.closest('.rounded-2xl').remove()" class="px-4 py-2 rounded-xl text-xs font-bold text-white transition-all hover:opacity-90" style="background:#f97316;">✓ Accept</button>
+            <button onclick="this.closest('.rounded-2xl').remove()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#1e293b;">✕ Decline</button>
+            <a href="messages.html" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 border border-white/[0.07] hover:bg-white/5 transition-all" style="background:#1e293b;">💬 Message</a>
+          </div>
+        </div>
+
+        <!-- Proposal 3 – Declined -->
+        <div class="rounded-2xl p-5 sm:p-6 border border-white/[0.07] opacity-70" style="background:#263348;">
+          <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0 bg-violet-500/70">JD</div>
+              <div>
+                <div class="font-semibold text-sm">John Doe</div>
+                <div class="text-xs text-slate-500">⭐ 4.6 (7)</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide text-red-400" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);">✕ Declined</span>
+              <span class="text-xs text-slate-500">Created 1/28/2024</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">They offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">🐍 Data Science Python</div>
+            </div>
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0 border border-white/[0.07]" style="background:rgba(255,255,255,.05);">⇄</div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1.5">You offer</div>
+              <div class="px-3 py-2 rounded-xl text-sm font-semibold border border-white/[0.07]" style="background:rgba(255,255,255,.05);">🎨 Graphic Design</div>
+            </div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1.5">Their Message</div>
+            <div class="rounded-xl p-3 text-sm text-slate-400 leading-relaxed border border-white/[0.05]" style="background:rgba(255,255,255,.03);">Would you like to swap? I can teach you Python data analysis in exchange for design help.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sent (empty) -->
+      <div id="tab-sent" class="hidden">
+        <div class="text-center py-16">
+          <div class="text-5xl mb-4 opacity-30">🤝</div>
+          <h3 class="text-slate-400 font-semibold mb-2">No sent proposals yet</h3>
+          <p class="text-slate-500 text-sm">Browse skills and propose an exchange to get started.</p>
+          <a href="browse.html" class="inline-block mt-5 px-5 py-2.5 rounded-xl text-sm font-bold text-white" style="background:#f97316;">Browse Skills</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function showTab(name, el) {
+      document.querySelectorAll('.tab').forEach(t => { t.classList.remove('tab-active'); t.classList.add('tab-inactive'); });
+      el.classList.add('tab-active'); el.classList.remove('tab-inactive');
+      document.getElementById('tab-received').classList.toggle('hidden', name !== 'received');
+      document.getElementById('tab-received').classList.toggle('flex', name === 'received');
+      document.getElementById('tab-received').style.flexDirection = 'column';
+      document.getElementById('tab-sent').classList.toggle('hidden', name !== 'sent');
+    }
+  </script>
+</body>
+</html>

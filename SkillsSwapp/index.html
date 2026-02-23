@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSwap – Trade Skills, Grow Together</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            deep:    '#0f172a',
+            surface: '#1e293b',
+            card:    '#263348',
+            cardho:  '#2d3d57',
+            amber:   { DEFAULT: '#f97316', light: '#fb923c' },
+            teal:    { DEFAULT: '#14b8a6', light: '#2dd4bf' },
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body:    ['DM Sans', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0f172a; color: #f1f5f9; }
+    .font-display { font-family: 'Syne', sans-serif; }
+    .hero-glow::before { content:''; position:absolute; top:-80px; right:-80px; width:380px; height:380px; background:radial-gradient(circle, rgba(249,115,22,.14) 0%, transparent 70%); pointer-events:none; }
+    .hero-glow::after  { content:''; position:absolute; bottom:-40px; left:15%; width:220px; height:220px; background:radial-gradient(circle, rgba(20,184,166,.1) 0%, transparent 70%); pointer-events:none; }
+    .active-nav { background:rgba(249,115,22,.12); color:#f97316; border:1px solid rgba(249,115,22,.3); }
+    .inactive-nav:hover { background:#263348; color:#f1f5f9; }
+    ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:#0f172a; } ::-webkit-scrollbar-thumb { background:#1e293b; border-radius:3px; }
+  </style>
+</head>
+<body class="min-h-screen flex">
+
+  <!-- Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="-translate-x-full lg:translate-x-0 transition-transform duration-300 fixed top-0 left-0 w-60 min-h-screen z-50 flex flex-col border-r border-white/[0.07]" style="background:#1e293b;">
+    <div class="px-5 py-6 border-b border-white/[0.07]">
+      <div class="font-display font-extrabold text-xl tracking-tight" style="color:#f97316;">SkillSwap</div>
+      <div class="text-xs text-slate-500 mt-1">Trade skills, grow together</div>
+    </div>
+    <nav class="flex-1 p-3 flex flex-col gap-0.5">
+      <a href="index.html"     class="nav-link active-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
+        <span>🔍</span> Browse skills
+      </a>
+      <a href="proposals.html" class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all">
+        <span>🤝</span> Proposals
+      </a>
+      <a href="messages.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all">
+        <span>💬</span> Messages
+      </a>
+      <a href="schedule.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all">
+        <span>📅</span> Schedule
+      </a>
+      <a href="profile.html"   class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all">
+        <span>👤</span> Profile
+      </a>
+      <a href="settings.html"  class="nav-link inactive-nav flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 transition-all">
+        <span>⚙️</span> Settings
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col lg:ml-60">
+
+    <!-- Mobile header -->
+    <header class="lg:hidden flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] sticky top-0 z-30" style="background:#1e293b;">
+      <span class="font-display font-extrabold text-lg" style="color:#f97316;">SkillSwap</span>
+      <button id="menu-btn" class="flex flex-col gap-1.5 p-1 cursor-pointer">
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+        <span class="block w-5 h-0.5 bg-slate-300 rounded"></span>
+      </button>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden px-6 sm:px-8 pt-10 pb-8 hero-glow" style="background:linear-gradient(135deg,#1e293b 0%,#162032 55%,#0f172a 100%);">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-5 border" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.25);color:#f97316;">
+        ✦ Community Platform
+      </div>
+
+      <h1 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl leading-tight tracking-tight max-w-xl">
+        Trade Skills,<br>
+        <span style="color:#f97316;">Grow Together</span>
+      </h1>
+
+      <p class="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed max-w-md">
+        Connect with community members to exchange skills and knowledge. No money needed — just mutual growth and shared passion for learning.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 mt-7">
+        <a href="browse.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 hover:-translate-y-0.5 shadow-lg" style="background:#f97316;">
+          🔍 Browse Skills
+        </a>
+        <a href="profile.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:-translate-y-0.5 border" style="color:#f97316;border-color:rgba(249,115,22,.35);background:rgba(249,115,22,.07);">
+          ✦ Create a Profile
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10">
+        <div class="rounded-xl p-4 text-center backdrop-blur-md border border-white/10" style="background:rgba(255,255,255,.05);">
+          <div class="font-display font-extrabold text-3xl" style="color:#f97316;">5</div>
+          <div class="text-xs text-white/50 mt-1">Active members</div>
+        </div>
+        <div class="rounded-xl p-4 text-center backdrop-blur-md border border-white/10" style="background:rgba(255,255,255,.05);">
+          <div class="font-display font-extrabold text-3xl" style="color:#2dd4bf;">8</div>
+          <div class="text-xs text-white/50 mt-1">Skills listed</div>
+        </div>
+        <div class="rounded-xl p-4 text-center backdrop-blur-md border border-white/10" style="background:rgba(255,255,255,.05);">
+          <div class="font-display font-extrabold text-3xl text-violet-400">2</div>
+          <div class="text-xs text-white/50 mt-1">Active swaps</div>
+        </div>
+        <div class="rounded-xl p-4 text-center backdrop-blur-md border border-white/10" style="background:rgba(255,255,255,.05);">
+          <div class="font-display font-extrabold text-3xl text-amber-400">4.7</div>
+          <div class="text-xs text-white/50 mt-1">Avg. rating</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="px-6 sm:px-8 py-10">
+      <div class="mb-7">
+        <h2 class="font-display font-extrabold text-xl tracking-tight">How it works</h2>
+        <p class="text-slate-400 text-sm mt-1">Three simple steps to start trading skills</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <!-- Card 1 -->
+        <div class="relative rounded-2xl p-6 border border-white/[0.07] overflow-hidden group transition-all hover:-translate-y-1 hover:shadow-2xl" style="background:#263348;">
+          <div class="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(90deg,#f97316,transparent);"></div>
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl mb-4" style="background:rgba(249,115,22,.15);">👤</div>
+          <h3 class="font-display font-bold text-base mb-2">Create Profile</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Set up your profile and list the skills you want to share with others</p>
+          <a href="profile.html" class="inline-block mt-4 text-xs font-bold" style="color:#f97316;">Get started →</a>
+        </div>
+        <!-- Card 2 -->
+        <div class="relative rounded-2xl p-6 border border-white/[0.07] overflow-hidden group transition-all hover:-translate-y-1 hover:shadow-2xl" style="background:#263348;">
+          <div class="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(90deg,#14b8a6,transparent);"></div>
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl mb-4" style="background:rgba(20,184,166,.15);">🔍</div>
+          <h3 class="font-display font-bold text-base mb-2">Browse Skills</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Discover skills offered by community members in your area of interest</p>
+          <a href="browse.html" class="inline-block mt-4 text-xs font-bold" style="color:#2dd4bf;">Explore →</a>
+        </div>
+        <!-- Card 3 -->
+        <div class="relative rounded-2xl p-6 border border-white/[0.07] overflow-hidden group transition-all hover:-translate-y-1 hover:shadow-2xl" style="background:#263348;">
+          <div class="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(90deg,#a78bfa,transparent);"></div>
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl mb-4 bg-violet-500/10">✦</div>
+          <h3 class="font-display font-bold text-base mb-2">Make a Proposal</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Propose a skill exchange with someone whose skills interest you</p>
+          <a href="proposals.html" class="inline-block mt-4 text-xs font-bold text-violet-400">View proposals →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
